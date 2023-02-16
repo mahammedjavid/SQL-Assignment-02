@@ -1,0 +1,21 @@
+
+1 : select customer_name , order_date , quantity , product_name from customer join ordert on customer.customer_id = ordert.customer_id join orderdetails on orderdetails.order_id = ordert.order_id join product on product.product_id = orderdetails.product_id;
+
+2 : select  ordert.order_id, order_date, quantity , product_price, (product_price * quantity) as Total_Price from ordert join orderdetails on orderdetails.order_id = ordert.order_id join product on product.product_id = orderdetails.product_id;
+
+3 : select customer_name , order_id from customer left join ordert on customer.customer_id = ordert.customer_id where customer.customer_id  NOT IN (select customer_id from ordert);
+
+4 : select product.product_id ,product.product_name, orderdetails.order_id from product left join orderdetails on orderdetails.product_id = product.product_id WHERE product.product_id NOT IN (select product_id from orderdetails);
+
+5 : select customer_name , order_date , quantity , product_price, quantity * product_price as Total_price  from customer join ordert on customer.customer_id = ordert.customer_id join orderdetails on ordert.order_id = orderdetails.order_id join product on product.product_id = orderdetails.product_id;
+
+6 : select customer_name , order_id, order_date from ordert join customer on customer.customer_id = ordert.customer_id where order_date = (select min(order_date) from ordert) OR order_date = (select MAX(order_date) from ordert);
+
+7 :  select  customer_name , count(*) as orders from customer join ordert on customer.customer_id = ordert.customer_id group by customer_name order by orders desc limit 1;
+
+8 : select customer_name ,EXTRACT(YEAR FROM order_date) ,count(*) from ordert join customer on customer.customer_id = ordert.customer_id group by EXTRACT(YEAR FROM order_date), customer_name order by count desc limit 1;
+
+9 : select TO_CHAR(order_date,'MONTH'), COUNT(*) from ordert join customer on customer.customer_id = ordert.customer_id GROUP BY TO_CHAR(order_date,'MONTH') order by count desc limit 1;
+
+10 : select product_name, order_id, product_price from product left join orderdetails on orderdetails.product_id = product.product_id order by product_price desc limit 1;
+
